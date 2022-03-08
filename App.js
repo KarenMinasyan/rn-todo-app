@@ -1,8 +1,8 @@
-import {useState} from 'react';
-import {StyleSheet, View, Alert} from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, View, Alert } from 'react-native';
+import MainScreen from './src/screens/MainScreen';
+import TodoScreen from './src/screens/TodoScreen';
 import Navbar from './src/components/Navbar';
-import MainScreen from "./src/screens/MainScreen";
-import TodoScreen from "./src/screens/TodoScreen";
 
 export default function App() {
 	const [todoId, setTodoId] = useState(null);
@@ -19,9 +19,11 @@ export default function App() {
 	}
 
 	const removeTodo = (id) => {
+		const s = todos.find(todo => todo.id === id)
+
 		Alert.alert(
 			'Delete Item',
-			`Are you sure to delete '${selectedTodo.title}' ?`,
+			`Are you sure to delete '${s.title}' ?`,
 			[
 				{
 					text: 'Cancel',
@@ -40,6 +42,16 @@ export default function App() {
 		)
 	}
 
+	const updateTodo = (id,  title) => {
+		setTodos(prev => prev.map(todo => {
+			if(todo.id === id) {
+				todo.title = title;
+			}
+
+			return todo;
+		}))
+	}
+
 	const selectedTodo = todos.find(todo => todo.id === todoId)
 
 	const goBack = () => {
@@ -48,20 +60,25 @@ export default function App() {
 
 	return (
 		<View>
-			<Navbar title='Todo App!'/>
+			<Navbar title='Todo App!' />
 			<View style={styles.container}>
 				{
-					todoId ? <TodoScreen
+					todoId ? (
+						<TodoScreen
 							todo={selectedTodo}
 							onRemove={removeTodo}
 							goBack={goBack}
+							onSave={updateTodo}
 						/>
-						: (<MainScreen
+						)
+						: (
+							<MainScreen
 							todos={todos}
 							addTodo={addTodo}
 							removeTodo={removeTodo}
 							openTodo={setTodoId}
-						/>)
+						/>
+						)
 				}
 			</View>
 		</View>

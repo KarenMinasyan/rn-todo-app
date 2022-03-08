@@ -1,15 +1,36 @@
-import {View, StyleSheet, Text, Button} from 'react-native';
-import {THEME} from '../helpers/constants';
-import AppCard from "../components/ui/AppCard";
+import { useState } from 'react';
+import { View, StyleSheet, Text, Button } from 'react-native';
+import AppCard from '../components/ui/AppCard';
+import EditModal from '../components/EditModal';
+import { THEME } from '../helpers/constants';
 
-const {DANGER_COLOR, GRAY_COLOR} = THEME;
+const { DANGER_COLOR, GRAY_COLOR } = THEME;
 
-const TodoScreen = ({goBack, todo, onRemove}) => {
+const TodoScreen = ({ goBack, todo, onRemove, onSave }) => {
+	const [modal, setModal] = useState(false);
+	const { title, id } = todo;
+
+	const saveHandler = (title) => {
+		onSave(id, title)
+		setModal(false)
+	}
+
 	return (
 		<View>
+			<EditModal
+				value={title}
+				visible={modal}
+				onCancel={() => setModal(false)}
+				onSave={saveHandler}
+			/>
+
 			<AppCard style={styles.card}>
-				<Text style={styles.title}>{todo.title}</Text>
-				<Button title='edit' />
+				<Text style={styles.title}>{title}</Text>
+				<Button
+					title='edit'
+					onPress={() => setModal(true)}
+					color={DANGER_COLOR}
+				/>
 			</AppCard>
 			<View style={styles.buttons}>
 				<View style={styles.button}>
@@ -23,7 +44,7 @@ const TodoScreen = ({goBack, todo, onRemove}) => {
 					<Button
 						title='delete'
 						color={DANGER_COLOR}
-						onPress={() => onRemove(todo.id)}
+						onPress={() => onRemove(id)}
 					/>
 				</View>
 			</View>
