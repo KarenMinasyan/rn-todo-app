@@ -1,12 +1,13 @@
-import  { View, Text, StyleSheet } from 'react-native';
-import {THEME} from "../helpers/constants";
+import  { View, StyleSheet } from 'react-native';
+import AppTextBold from "./ui/AppTextBold";
+import { THEME } from "../helpers/constants";
 
 const {MAIN_COLOR} = THEME;
 
 const Navbar = ({ title }) => {
 		return (
 			<View style={styles.navbar}>
-					<Text style={styles.text}>{title}</Text>
+					<AppTextBold style={styles.text}>{title}</AppTextBold>
 			</View>
 		)
 }
