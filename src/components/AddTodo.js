@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, StyleSheet, TextInput, Alert } from 'react-native';
+import { View, StyleSheet, TextInput, Alert, Keyboard } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { THEME } from '../helpers/constants';
 
@@ -12,6 +12,7 @@ const AddTodo = ({ onSubmit }) => {
 		if(value.trim()) {
 			onSubmit(value)
 			setValue('')
+			Keyboard.dismiss()
 		} else {
 			Alert.alert('name todo do not be empty')
 		}
