@@ -2,11 +2,11 @@ import {useState} from 'react';
 import {
 	View,
 	StyleSheet,
-	Button,
 	Modal,
 	TextInput,
 	Alert
 } from 'react-native';
+import AppButton from './ui/AppButton';
 import { THEME } from '../helpers/constants';
 
 const { MAIN_COLOR, DANGER_COLOR } = THEME;
@@ -42,15 +42,17 @@ const EditModal = ({ visible, onCancel, value, onSave }) => {
 					maxLength={64}
 				/>
 				<View style={styles.buttons}>
-					<Button
-						title='Cancel'
+					<AppButton
 						color={DANGER_COLOR}
 						onPress={onCancel}
-					/>
-					<Button
-						title='Save'
+					>
+						Cancel
+					</AppButton>
+					<AppButton
 						onPress={saveHandler}
-					/>
+					>
+						Save
+					</AppButton>
 				</View>
 			</View>
 		</Modal>
