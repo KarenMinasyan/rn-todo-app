@@ -1,9 +1,9 @@
-import React, {useReducer} from 'react';
-import {ScreenContext} from "./screenContext";
-import {screenReducer} from './screenReducer';
-import {CHANGE_SCREEN} from "../types";
+import React, {useContext, useReducer} from 'react';
+import { ScreenContext } from './screenContext';
+import { screenReducer } from './screenReducer';
+import { CHANGE_SCREEN } from '../types';
 
-const ScreenState = ({children}) => {
+const ScreenState = ({ children }) => {
 	const [state, dispatch] = useReducer(screenReducer, null);
 
 	const changeScreen = id => dispatch({type: CHANGE_SCREEN, payload: id})
@@ -15,5 +15,7 @@ const ScreenState = ({children}) => {
 	)
 
 }
+
+export const useScreenData = () => useContext(ScreenContext)
 
 export default ScreenState;

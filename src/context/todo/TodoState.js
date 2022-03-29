@@ -1,15 +1,15 @@
-import React, {useContext, useReducer} from 'react';
+import React, { useContext, useReducer } from 'react';
 import { Alert } from 'react-native'
-import {TodoContext} from "./todoContext";
-import {todoReducer} from "./todoReducer";
-import {ADD_TODO, REMOVE_TODO, UPDATE_TODO} from "../types";
-import {ScreenContext} from "../screen/screenContext";
+import { TodoContext } from './todoContext';
+import { todoReducer } from './todoReducer';
+import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from '../types';
+import { useScreenData } from '../screen/ScreenState';
 
-const TodoState = ({children}) => {
+const TodoState = ({ children }) => {
 	const initialState = {
 		todos: [{id: 1, title: 'learn react native'}]
 	}
-	const {changeScreen} = useContext(ScreenContext)
+	const { changeScreen } = useScreenData()
 	const [state, dispatch] = useReducer(todoReducer, initialState);
 
 	const addTodo = title => dispatch({type: ADD_TODO, title})
@@ -52,5 +52,8 @@ const TodoState = ({children}) => {
 		</TodoContext.Provider>
 	)
 }
+
+
+export const useTodoData = () => useContext(TodoContext)
 
 export default TodoState;

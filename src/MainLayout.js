@@ -1,15 +1,15 @@
-import React, {useContext} from 'react';
-import {View, StyleSheet, Alert} from 'react-native';
-import Navbar from "./components/Navbar";
-import {THEME} from "./helpers/constants";
-import TodoScreen from "./screens/TodoScreen";
-import MainScreen from "./screens/MainScreen";
-import {ScreenContext} from "./context/screen/screenContext";
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import TodoScreen from './screens/TodoScreen';
+import MainScreen from './screens/MainScreen';
+import Navbar from './components/Navbar';
+import { useScreenData } from './context/screen/ScreenState';
+import { THEME } from './helpers/constants';
 
 const { PADDING_HORIZONTAL } = THEME;
 
 const MainLayout = () => {
-	const {todoId} = useContext(ScreenContext)
+	const { todoId } = useScreenData()
 
 	return (
 		<View>

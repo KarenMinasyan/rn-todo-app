@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
 	View,
 	StyleSheet,
@@ -8,15 +8,15 @@ import {
 } from 'react-native';
 import AddTodo from '../components/AddTodo';
 import Todo from '../components/Todo';
+import { useScreenData } from '../context/screen/ScreenState';
+import { useTodoData}  from '../context/todo/TodoState';
 import { THEME } from '../helpers/constants';
-import {TodoContext} from "../context/todo/todoContext";
-import {ScreenContext} from "../context/screen/screenContext";
 
 const { PADDING_HORIZONTAL } = THEME;
 
 const MainScreen = () => {
-	const {addTodo, todos, removeTodo} = useContext(TodoContext)
-	const {changeScreen} = useContext(ScreenContext)
+	const { addTodo, todos, removeTodo } = useTodoData()
+	const { changeScreen } = useScreenData()
 	const [deviceWidth, setDeviceWidth] = useState(Dimensions.get('window').width - PADDING_HORIZONTAL * 2);
 
 	useEffect(() => {
