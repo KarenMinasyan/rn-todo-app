@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {
 	View,
 	StyleSheet,
@@ -9,10 +9,14 @@ import {
 import AddTodo from '../components/AddTodo';
 import Todo from '../components/Todo';
 import { THEME } from '../helpers/constants';
+import {TodoContext} from "../context/todo/todoContext";
+import {ScreenContext} from "../context/screen/screenContext";
 
 const { PADDING_HORIZONTAL } = THEME;
 
-const MainScreen = ({ addTodo, todos, removeTodo, openTodo }) => {
+const MainScreen = () => {
+	const {addTodo, todos, removeTodo} = useContext(TodoContext)
+	const {changeScreen} = useContext(ScreenContext)
 	const [deviceWidth, setDeviceWidth] = useState(Dimensions.get('window').width - PADDING_HORIZONTAL * 2);
 
 	useEffect(() => {
@@ -41,7 +45,7 @@ const MainScreen = ({ addTodo, todos, removeTodo, openTodo }) => {
 						renderItem={({item}) => (<Todo
 							todo={item}
 							onRemove={removeTodo}
-							onOpen={openTodo}
+							onOpen={changeScreen}
 						/>)}
 					/>
 				</View>
