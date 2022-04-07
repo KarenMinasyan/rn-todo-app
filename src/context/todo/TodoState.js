@@ -2,7 +2,16 @@ import React, { useContext, useReducer } from 'react';
 import { Alert } from 'react-native'
 import { TodoContext } from './todoContext';
 import { todoReducer } from './todoReducer';
-import {ADD_TODO, CLEAR_ERROR, HIDE_LOADER, REMOVE_TODO, SHOW_ERROR, SHOW_LOADER, UPDATE_TODO} from '../types';
+import {
+	ADD_TODO,
+	CLEAR_ERROR,
+	FETCH_TODOS,
+	HIDE_LOADER,
+	REMOVE_TODO,
+	SHOW_ERROR,
+	SHOW_LOADER,
+	UPDATE_TODO
+} from '../types';
 import { useScreenData } from '../screen/ScreenState';
 
 const TodoState = ({ children }) => {
@@ -24,6 +33,26 @@ const TodoState = ({ children }) => {
 		const data = await response.json()
 		//console.log('data', data)
 		dispatch({type: ADD_TODO, title, id: data.name })
+	}
+
+	const fetchTodos = async () => {
+		showLoader()
+		clearError()
+		try {
+			const response = await fetch(
+				'https://rn-todo-app-b7d58-default-rtdb.firebaseio.com/todos.json', {
+					method: 'GET',
+					headers: {'Content-Type': 'application/json'},
+				})
+			const data = await response.json()
+			const todos = Object.keys(data).map(key => ({ ...data[key], id: key }))
+			dispatch({ type: FETCH_TODOS, todos })
+		} catch (e) {
+			showError('something wrong,try again...')
+			console.log(e)
+		} finally {
+			hideLoader()
+		}
 	}
 
 	const removeTodo = id => {
@@ -63,9 +92,12 @@ const TodoState = ({ children }) => {
 		<TodoContext.Provider
 			value={{
 				todos: state.todos,
+				loading: state.loading,
+				error: state.error,
 				addTodo,
 				removeTodo,
-				updateTodo
+				updateTodo,
+				fetchTodos
 			}}
 		>
 			{children}
