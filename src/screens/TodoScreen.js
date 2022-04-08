@@ -18,8 +18,8 @@ const TodoScreen = () => {
 
 	const { title, id } = todos.find(t => t.id === todoId)
 
-	const saveHandler = (title) => {
-		updateTodo(id, title)
+	const saveHandler = async (title) => {
+		await updateTodo(id, title)
 		setModal(false)
 	}
 
