@@ -3,7 +3,10 @@
     "name": "Self Todo",
     "slug": "rn-todo-app",
     "privacy": "public",
-    "platforms": ["ios","android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/rn-icon.png",
@@ -19,8 +22,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.karenminasyandev.self-todo-rn-app",
+      "buildNumber": "1.0.0"
     },
-    "android": {}
+    "android": {
+      "package": "com.karenminasyandev.self_todo_rn_app",
+      "versionCode": 1
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a6de1740-328d-468a-b6e2-7fe6decb33bc"
+      }
+    }
   }
 }
